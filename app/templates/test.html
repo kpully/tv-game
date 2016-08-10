@@ -1,0 +1,30 @@
+{# ourapp/templates/test.html #}
+
+{% extends "base.html" %}
+{% block content %}
+
+<body>
+    <h1>test!!!</h1>
+
+    <p>update</p>
+    <html>
+    <head>
+        <title>Input Page</title>
+    </head>
+    <body>
+    <form action="{{ url_for('test') }}" method="post">
+            <input type="password" name="name">name</input>
+            <input type="text" name="weight">weight</input>
+            <input type="text" name="gender">gender</input>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+
+</html>
+
+
+</form>
+</body>
+
+{% endblock %}

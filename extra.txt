@@ -1,0 +1,13 @@
+  <p>{{alc}}</p>
+    <p>weight: {{weight}}</p>
+        <p>{{gender}}</p>
+
+var $ul = $("some selector for the list");
+var json = /*...wherever you're getting the object from... */;
+displayJson($ul, json);
+        function displayJson($ul, json) {
+    $ul.empty(); // If it might have something in it
+    $.each(json, function(key, value) {
+        $ul.append($("<li>").html(value.title));
+    });
+}

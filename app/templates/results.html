@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class="page-header">
+  <h1>{{ name }}'s Bachelor in Paradise Drinking Game! <small>Play at your own risk...</small></h1>
+
+<!--<p>{{ weight}}</p>-->
+<!--<p>{{ gender }}</p>-->
+</div>
+	<div id="conditions" class="list-group"></div>
+<!-- <div>{{ conditions | safe}}</div> -->
+<script>
+console.log({{conditions | safe}})
+var arr = $.map({{conditions | safe}}, function(key, value) { return key, value });
+console.log(arr)
+
+	var out = ""
+    for(var i = 0; i<arr.length; i++) {
+        out += '<li class="list-group-item">' + arr[i] + '</li>'}
+    document.getElementById("conditions").innerHTML = out;
+
+</script>
+
+
+
+<!-- AddToAny BEGIN -->
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_google_plus"></a>
+</div>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<!-- AddToAny END -->
+
+{% endblock %}

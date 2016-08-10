@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+  <title>BiP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>ABC's Bachelor in Paradise: The Drinking Game</h1> 
+      <p>Play at your own risk!</p> 
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Please complete the following for a personalized drinking experience.</h2>
+
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label for="firstname" id="firstname">Name:</label>
+        <input type="text" class="form-control" id="firstname" placeholder="Enter first name">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Weight:</label>
+        <input type="password" class="form-control" id="weight" placeholder="Enter weight in lbs">
+      </div>
+      <label class="radio-inline">
+        <input type="radio" name="optradio">Male
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="optradio">Female
+      </label>
+    </form>
+  </div>
+  <div class="container">
+    <form>
+      <h4>What are you drinking?</h4>
+      <div class="checkbox">
+        <label><input type="checkbox" value="">Wine (red)</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="">Wine (white)</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="">Vodka</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="">Champagne</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="">Whiskey</label>
+      </div>
+      <div class="checkbox disabled">
+        <label><input type="checkbox" value="" disabled>Beer</label>
+      </div>
+    </form>
+  </div><div class="container">
+  <form>
+    <h4>How drunk do you want to be?</h4>
+    <div class="checkbox">
+      <label><input type="checkbox" name="buzzed" value="">Buzzed</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="tipsy" value="">Tipsy</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="sloppy" value="">Sloppy</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="hammered" value="">Hammered</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="blackout" value="">Blackout</label>
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+
+<!-- FUNCTION TO GET CHANCE FROM YOUR PREDICTOR WITH AJAX AND CHANGE BAR  HEIGHT -->
+<script>
+
+
+
+  function getAndDrawChance(name, weight){
+   $.ajax({
+     type: "POST",
+     contentType: "application/json; charset=utf-8",
+     url: "/_sips",
+     dataType: "json",
+     async: true,
+     data: "{\"example\": ["+name+","+weight+"]}",
+     success: function (data) {
+       console.log($(firstname).val());
+       console.log($(id).val());
+     },
+     error: function (result) {
+     }
+   })
+ }
+
+</script>
+
+{% endblock %}
