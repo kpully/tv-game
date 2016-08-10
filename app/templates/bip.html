@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+  <title>BiP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script>
+    $( function() {
+    $(document).tooltip();
+  } );
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>ABC's Bachelor in Paradise: The Drinking Game</h1> 
+      <p>Play at your own risk!</p> 
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Please complete the following for a personalized drinking experience.</h2>
+
+    <form action="{{ url_for('get_form') }}" method="post">
+      <div class="form-group">
+      <label for="pwd">First name:</label>
+        <input type="text" class="form-control" name="firstname" placeholder="Enter first name!"></input>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Weight:</label>
+        <input type="password" class="form-control" name="weight" placeholder="Enter weight in lbs">
+      </div>
+      <label class="radio-inline">
+        <input type="radio" name="gender" value="male" checked>Male
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="gender" value="female">Female
+      </label>
+      <h4>What are you drinking?</h4>
+      <div class="checkbox">
+        <label><input type="checkbox" name="wine(red)" checked>Wine (red)</label>
+        <label><input type="checkbox" name="wine(white)">Wine (white)</label>
+        <label><input type="checkbox" name="vodka">Vodka</label>
+        <label><input type="checkbox" name="champagne">Champagne</label>
+        <label><input type="checkbox" name="whiskey">Whiskey</label>
+        <label><input type="checkbox" name="beer">Beer</label>
+      </div>
+      <h4>How drunk do you want to be?</h4>
+      <div class="checkbox">
+        <label><input type="radio" id="buzzed" name="drunk" title="BAC=0.05" value="buzzed" checked> Buzzed</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="radio" id="tipsy" name="drunk" value="tipsy" title="BAC=0.1"> Tipsy</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="radio" id="hammered" name="drunk" value="hammered" title="BAC=0.18"> Hammered</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="radio" title="BAC=0.3" id="blackout" name="drunk" value="blackout"> Blackout</label>
+      </div>
+
+      <input type="submit" value="Submit"></form>
+ 
+  </div>
+
+
+  {% endblock %}
