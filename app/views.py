@@ -4,10 +4,9 @@ from .forms import MyForm
 from app import app
 
 import numpy as np
-import pandas as pd
+import math
 
 import pandas as pd
-import numpy as np
 import random
 
 
@@ -33,31 +32,35 @@ def get_form():
     if request.method == "POST":
         name = request.form['firstname']
         name = name[0].upper()+name[1:]
-        weight = request.form['weight']
-        gender = request.form['gender']
+        weight = float(request.form['weight'])
+        hours = float(request.form['hours'])
+        gen_temp = request.form['gender']
+        if gen_temp == 'male':
+            gender = 0.73
+        else:
+            gender = 0.66
         drunk = request.form['drunk']
-        redWine, whiteWine, vodka, champagne, whiskey, beer= False, False, False, False, False, False
-        if request.form.get("wine(red)"):
-            redWine = True
-        if request.form.get("wine(white)"):
-            whiteWine = True
-        if request.form.get("vodka"):
-            vodka = True
-        if request.form.get("champagne"):
-            champagne = True
-        if request.form.get("whiskey"):
-            whiskey = True
-        if request.form.get("beer"):
-            beer = True
-        conditions = pd.read_csv('data/conditions.csv')
-        conditions_dict = conditions.set_index('Condition')['times_per_show'].to_dict()
-        s = 0
-        l = {}
-        while s <= 15:
-            c = random.choice(conditions_dict.items())
-            l[c[0]]=c[1]
-            s = s + c[1]
-        return render_template('results.html', name=name, conditions=json.dumps(l), weight=weight, gender=gender, drunk=drunk, show=show)
+        alc = float(request.form['alc'])
+        state = float(request.form['drunk'])
+        conditions = pd.read_csv('data/bip.csv')
+        conditions_dict = conditions.set_index('Condition')['chance_of_condition'].to_dict()
+        oz = math.floor((weight*gender*(state + 0.015*hours))/(5.14*alc))
+        keys = conditions_dict.keys()
+        random.shuffle(keys)
+        game = {}
+        imbibed = 0
+        for key in keys:
+            if int(imbibed) < oz:
+                if conditions_dict[key] == "low":
+                    imbibed = imbibed + 0.12*8
+                    game[key] = 'chug'
+                elif conditions_dict[key] == "normal":
+                    imbibed = imbibed + 0.12*3
+                    game[key] = "gulp"
+                elif conditions_dict[key] == "high":
+                    imbibed = imbibed + 0.12*1.5
+                    game[key] = "sip"
+        return render_template('results.html', name=name, conditions=json.dumps(game), show=show, oz=oz)
     elif request.method == "GET":
         return render_template('bip.html', form=form)
 
@@ -68,37 +71,43 @@ def get_form_olympics():
     if request.method == "POST":
         name = request.form['firstname']
         name = name[0].upper()+name[1:]
-        weight = request.form['weight']
-        gender = request.form['gender']
-        drunk = request.form['drunk']
-        redWine, whiteWine, vodka, champagne, whiskey, beer= False, False, False, False, False, False
+        weight = float(request.form['weight'])
+        hours = float(request.form['hours'])
+        gen_temp = request.form['gender']
+        if gen_temp == 'male':
+            gender = 0.73
+        else:
+            gender = 0.66
+        alc = float(request.form['alc'])
+        state = float(request.form['drunk'])
         sports = request.form.getlist('sports')        
-        #alcs
-        if request.form.get("wine(red)"):
-            redWine = True
-        if request.form.get("wine(white)"):
-            whiteWine = True
-        if request.form.get("vodka"):
-            vodka = True
-        if request.form.get("champagne"):
-            champagne = True
-        if request.form.get("whiskey"):
-            whiskey = True
-        if request.form.get("beer"):
-            beer = True
         conditions = pd.read_csv('data/olympics.csv')
-        conditions_dict = conditions.set_index('Condition')['sport'].to_dict()
-        s = 0
-        l = set()
-        while s <= 25:
-            el = random.choice(conditions_dict.items())
-            curr =  el[1].split(',')
-            for sport in curr:
-                if sport.strip() in sports:
-                    l.add(el[0])
-                    s = s + 1
-                    break
-        return render_template('results.html', name=name, conditions=json.dumps(list(l)), weight=weight, gender=gender, drunk=drunk, show=show, sports=sports)
+        conditions_dict = conditions.set_index('Condition')['chance_of_condition'].to_dict()
+        categories = conditions.set_index('Condition')['sport'].to_dict()
+        filtered = []
+        for c in categories.items():
+            curr = c[1].split(',')
+            for s in curr:
+                if s.strip() in sports:
+                    filtered.append(c[0])
+        oz = math.floor((weight*gender*(state + 0.015*hours))/(5.14*alc))
+        filtered_d = dict((key, value) for key, value in conditions_dict.items() if key in filtered)
+        keys = filtered_d.keys()
+        random.shuffle(keys)
+        game = {}
+        imbibed = 0
+        for key in keys:
+            if int(imbibed) < oz:
+                if filtered_d[key] == "low":
+                    imbibed = imbibed + 0.12*8
+                    game[key] = 'chug'
+                elif filtered_d[key] == "normal":
+                    imbibed = imbibed + 0.12*3
+                    game[key] = "gulp"
+                elif filtered_d[key] == "high":
+                    imbibed = imbibed + 0.12*1.5
+                    game[key] = "sip"
+        return render_template('results.html', name=name, conditions=json.dumps(game), show=show, sports=sports, oz=oz)
     elif request.method == "GET":
         return render_template('olympics.html', form=form)
 

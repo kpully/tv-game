@@ -5,6 +5,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <div class="page-header">
   <h1>{{ name }}'s {{ show }} Drinking Game! <small>Play at your own risk...</small></h1>
+  <p>You need to drink {{oz}} oz! Wanna know why? Check out <a href="http://www.wikihow.com/Calculate-Blood-Alcohol-Content-(Widmark-Formula)"> Widmark's Formula</a> to see how BAC is calculated.</p>
 
 
 <!--<p>{{ weight}}</p>-->
@@ -14,14 +15,19 @@
 <!-- <div>{{ conditions | safe}}</div> -->
 <script>
 console.log({{conditions | safe}})
-var arr = $.map({{conditions | safe}}, function(key, value) { return key });
-console.log(arr)
+var condition = $.map({{conditions | safe}}, function(key, value) { return value });
+
+var sip_size = $.map({{conditions | safe}}, function(key, value) { return key });
 
 
-	var out = ""
-    for(var i = 0; i<arr.length; i++) {
-        out += '<li class="list-group-item">' + arr[i] + '</li>'}
+	var out = '<ul class="list-group">'
+    for(var i = 0; i<condition.length; i++) {
+        out += '<li class="list-group-item">' + condition[i] + '         <span class="label label-default">' + sip_size[i]  + '</span</li>'
+    //out += '</ul>'
+  }
     document.getElementById("conditions").innerHTML = out;
+
+
 
 </script>
 

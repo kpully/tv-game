@@ -39,18 +39,18 @@
         <input type="password" class="form-control" name="weight" placeholder="Enter weight in lbs">
       </div>
         <div class="form-group">
-        <label for="pwd">Time:</label>
+        <label for="pwd">Hours:</label>
       <label class="radio-inline">
-        <input type="radio" name="gender" value="one_hr" checked>1 hr
+        <input type="radio" name="hours" value="1" checked>1
       </label>
       <label class="radio-inline">
-        <input type="radio" name="gender" value="one_and_half_hr">1.5 hr
+        <input type="radio" name="hours" value="1.5">1.5
       </label>
             <label class="radio-inline">
-        <input type="radio" name="gender" value="two_hr">2 hrs
+        <input type="radio" name="hours" value="2">2
       </label>
             <label class="radio-inline">
-        <input type="radio" name="gender" value="two_plus_hr">2+ hrs
+        <input type="radio" name="hours" value="3">3
       </label>
       
       </div>
@@ -82,26 +82,26 @@
 
       </div>
       <h4>What are you drinking?</h4>
-      <div class="checkbox">
-        <label><input type="checkbox" name="wine(red)" checked>Wine (red)</label>
-        <label><input type="checkbox" name="wine(white)">Wine (white)</label>
-        <label><input type="checkbox" name="vodka">Vodka</label>
-        <label><input type="checkbox" name="champagne">Champagne</label>
-        <label><input type="checkbox" name="whiskey">Whiskey</label>
-        <label><input type="checkbox" name="beer">Beer</label>
+      <div class="radio">
+        <label><input type="radio" name="alc" value="0.13" checked>Wine (red)</label>
+        <label><input type="radio" name="alc" value="0.12">Wine (white)</label>
+        <label><input type="radio" name="alc" value="0.2">Vodka</label>
+        <label><input type="radio" name="alc" value="0.12">Champagne</label>
+        <label><input type="radio" name="alc" value="0.2">Whiskey</label>
+        <label><input type="radio" name="alc" value="0.04">Beer</label>
       </div>
       <h4>How drunk do you want to be?</h4>
       <div class="checkbox">
-        <label><input type="radio" id="buzzed" name="drunk" title="BAC=0.05" value="buzzed" checked> Buzzed</label>
+        <label><input type="radio" id="buzzed" name="drunk" title="BAC=0.05" value="0.05" checked> Buzzed</label>
       </div>
       <div class="checkbox">
-        <label><input type="radio" id="tipsy" name="drunk" value="tipsy" title="BAC=0.1"> Tipsy</label>
+        <label><input type="radio" id="tipsy" name="drunk" value="0.1" title="BAC=0.1"> Tipsy</label>
       </div>
       <div class="checkbox">
-        <label><input type="radio" id="hammered" name="drunk" value="hammered" title="BAC=0.18"> Hammered</label>
+        <label><input type="radio" id="hammered" name="drunk" value="0.18" title="BAC=0.18"> Hammered</label>
       </div>
       <div class="checkbox">
-        <label><input type="radio" title="BAC=0.3" id="blackout" name="drunk" value="blackout"> Blackout</label>
+        <label><input type="radio" title="BAC=0.3" id="blackout" name="drunk" value="0.3"> Blackout</label>
       </div>
 
       <input type="submit" value="Submit"></form>
