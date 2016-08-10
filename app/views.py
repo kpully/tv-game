@@ -27,12 +27,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/_create_game')
-def game():
-    user = {'nickname': 'Katherine'}  # fake user
-    return render_template('game.html', user=user)
-
-@app.route('/_index2', methods=["GET", "POST"])
+@app.route('/_index', methods=["GET", "POST"])
 def get_form():
     form = MyForm()
 
@@ -64,20 +59,7 @@ def get_form():
             s = s + c[1]
         return render_template('results.html', name=name, conditions=json.dumps(l), weight=weight, gender=gender, drunk=drunk)
     elif request.method == "GET":
-        return render_template('index_2.html', form=form)
-
-@app.route('/_index3', methods=["GET", "POST"])
-def get_form2():
-    form = MyForm()
-    weight = form.weight
-    gender = form.gender
-    alc = form.alc
-    if request.method == "POST":
-        name = request.form['firstname']
-        return name
-    elif request.method == "GET":
-        return render_template('index_2.html', form=form)
-
+        return render_template('index.html', form=form)
 
 
 
