@@ -21,7 +21,6 @@ conditions_dict = conditions.set_index('Condition')['times_per_show'].to_dict()
 
 
 #---------- URLS AND WEB PAGES -------------#
-
 @app.route('/')
 def index():
     return render_template('index.html')
