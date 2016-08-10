@@ -6,6 +6,7 @@
   <div class="page-header">
   <h1>{{ name }}'s {{ show }} Drinking Game! <small>Play at your own risk...</small></h1>
 
+
 <!--<p>{{ weight}}</p>-->
 <!--<p>{{ gender }}</p>-->
 </div>
@@ -13,8 +14,9 @@
 <!-- <div>{{ conditions | safe}}</div> -->
 <script>
 console.log({{conditions | safe}})
-var arr = $.map({{conditions | safe}}, function(key, value) { return key, value });
+var arr = $.map({{conditions | safe}}, function(key, value) { return key });
 console.log(arr)
+
 
 	var out = ""
     for(var i = 0; i<arr.length; i++) {

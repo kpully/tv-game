@@ -72,6 +72,8 @@ def get_form_olympics():
         gender = request.form['gender']
         drunk = request.form['drunk']
         redWine, whiteWine, vodka, champagne, whiskey, beer= False, False, False, False, False, False
+        sports = request.form.getlist('sports')        
+        #alcs
         if request.form.get("wine(red)"):
             redWine = True
         if request.form.get("wine(white)"):
@@ -85,14 +87,18 @@ def get_form_olympics():
         if request.form.get("beer"):
             beer = True
         conditions = pd.read_csv('data/olympics.csv')
-        conditions_dict = conditions.set_index('Condition')['times_per_show'].to_dict()
+        conditions_dict = conditions.set_index('Condition')['sport'].to_dict()
         s = 0
-        l = {}
+        l = set()
         while s <= 25:
-            c = random.choice(conditions_dict.items())
-            l[c[0]]=c[1]
-            s = s + c[1]
-        return render_template('results.html', name=name, conditions=json.dumps(l), weight=weight, gender=gender, drunk=drunk, show=show)
+            el = random.choice(conditions_dict.items())
+            curr =  el[1].split(',')
+            for sport in curr:
+                if sport.strip() in sports:
+                    l.add(el[0])
+                    s = s + 1
+                    break
+        return render_template('results.html', name=name, conditions=json.dumps(list(l)), weight=weight, gender=gender, drunk=drunk, show=show, sports=sports)
     elif request.method == "GET":
         return render_template('olympics.html', form=form)
 
