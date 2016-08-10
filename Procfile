@@ -1,1 +1,1 @@
-web: python model.py --log-file -
+web: python run.py --log-file -
