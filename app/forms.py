@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, RadioField, BooleanField, Intege
 from wtforms.validators import DataRequired, Email, Regexp, EqualTo, Required
 
 class MyForm(Form):
-    name = StringField('FirstName', validators=[DataRequired()])
+    name = StringField('First Name', validators=[DataRequired()])
     weight = IntegerField('Weight', validators=[Required()])
     time = SelectField('Time', choices=[('1', '1'), ('1.5', '1.5'), ('2', '2'), ('2.5', '2.5'), ('3', '3')])
     gender = SelectField('Gender', choices=[('male', 'Male'), ('female', 'Female')], validators=[DataRequired()])
@@ -13,7 +13,7 @@ class MyForm(Form):
 
 
 class OlympicForm(Form):
-    name = StringField('FirstName', validators=[DataRequired()])
+    name = StringField('First Name', validators=[DataRequired()])
     weight = PasswordField('Weight', validators=[Required(), Regexp('^[0-9]$', 0, 'Weights must only have numbers')])
     time = SelectField('Time', choices=[('1', '1'), ('1.5', '1.5'), ('2', '2'), ('2.5', '2.5'), ('3', '3')])
     gender = SelectField('Gender', choices=[('male', 'Male'), ('female', 'Female')], validators=[DataRequired()])
